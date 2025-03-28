@@ -1,6 +1,3 @@
-# js-ballsToTheWalls
-bouncing balls
-
 # 🎱 Balls to the Walls
 
 A fun and colorful JavaScript animation featuring three bouncing balls that collide with each other and the canvas walls.  
