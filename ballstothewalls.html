@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>balls to the walls </title>
+  <meta charset="utf-8">
+<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script> 
+	  <style>
+	  div {
+          width: 1615px;
+	      height: 815px;
+	      background-color: yellow;
+	      background-image: url("images/image1.jpg");
+      }
+	  
+	  </style>
+	</head>
+	<body style="background-color:white;">
+		<div >
+		<canvas id="canvas1" width="1600" height="800"> </canvas>
+		</div>
+		<script>
+	// Pollyfill for RequestAnimationFrame
+(function() {
+  var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+  window.requestAnimationFrame = requestAnimationFrame;
+})();
+
+var ele = document.querySelector("#canvas1");
+var ctx = ele.getContext('2d');
+// x,y are the coordinates for blue ball
+var x =150;
+ var y = 450;
+var xdir=1;
+var ydir=1;;
+// a,b are the coordinates for red ball
+var  a=1430;
+var b=740;
+
+var adir=-1;
+var bdir=-1;
+
+// c,d are the coordinates for orange ball
+var c = 800;
+var d = 600;
+var cdir = 1;
+var ddir = 1;
+
+function select () {
+	
+	if (x ==1600 || x==0){
+		xdir=-1* xdir;
+	}
+	
+	if (y ==750 || y==0){
+		ydir=-1* ydir;
+	}
+	
+	if (a ==1600 || a==0){
+		adir=-1* adir;
+	}
+	
+	if (b ==750 || b==0){
+		bdir=-1* bdir;
+	}
+	
+	if (c ==1600 || c==0){
+		cdir=-1* cdir;
+	}
+	
+	if (d ==750 || d==0){
+		ddir=-1* ddir;
+	}
+	
+	// distance between the centers of circles
+	var dist1 = Math.sqrt( Math.pow((a-x), 2) + Math.pow((b-y), 2) ); 
+	var dist2 = Math.sqrt( Math.pow((c-x), 2) + Math.pow((d-y), 2) );
+	
+	// if distance is nearly 100 then ==> collision
+	if ((dist1<=110 && dist1>=90) || (dist2<=110 && dist2>=90)) {
+		xdir = -1 * xdir;
+		adir = -1 * adir;
+		cdir = -1 * cdir;
+		ydir = -1 * ydir;
+		bdir = -1 * bdir;
+		ddir = -1 * ddir;
+	}
+	
+	if (xdir==1) {
+		x += 5;
+	}
+	else {
+		x -= 5;
+	}
+	
+	if (ydir==1) {
+		y += 10;
+	}
+	else {
+		y -= 10;
+	}
+	
+	if (adir==1) {
+		a += 5;
+	}
+	else {
+		a -= 5;
+	}
+	
+	if (bdir==1) {
+		b += 10;
+	}
+	else {
+		b -= 10;
+	}
+	
+	if (cdir==1) {
+		c += 5;
+	}
+	else {
+		c -= 5;
+	}
+	
+	if (ddir==1) {
+		d += 10;
+	}
+	else {
+		d -= 10;
+	}
+	
+	requestAnimationFrame(draw);	
+}
+
+function draw() {	
+	ctx.clearRect(0, 0, 1600, 800);
+
+	// draw blue ball
+	ctx.beginPath();
+    ctx.arc(x,y,50,0,2*Math.PI);  
+    ctx.strokeStyle="yellow";
+	ctx.stroke();
+    ctx.fillStyle="blue";
+    ctx.fill(); 
+	
+	// draw red ball
+	ctx.beginPath();
+    ctx.arc(a,b,50,0,2*Math.PI);  
+    ctx.strokeStyle="green";
+	ctx.stroke();
+    ctx.fillStyle="red";
+    ctx.fill(); 		  				  
+	
+	// draw orange ball
+	ctx.beginPath();
+    ctx.arc(c,d,50,0,2*Math.PI);  
+    ctx.strokeStyle="orange";
+	ctx.stroke();
+    ctx.fillStyle="orange";
+    ctx.fill(); 
+}
+
+requestAnimationFrame(draw);
+setInterval(select, 20);	
+		</script>	
+	</body>
+</html>
